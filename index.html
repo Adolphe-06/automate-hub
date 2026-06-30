@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comment installer n8n gratuitement sur un VPS avec Docker - Automate-Hub</title>
+    <style>
+        body { font-family: sans-serif; line-height: 1.6; max-width: 780px; margin: 40px auto; padding: 20px; color: #2d3748; background-color: #fafafa; }
+        .container { background: #ffffff; padding: 40px 35px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        h1 { font-size: 24pt; color: #1a202c; }
+        h2 { font-size: 16pt; color: #2b6cb0; border-left: 4px solid #2b6cb0; padding-left: 12px; margin-top: 35px; }
+        table { width: 100%; border-collapse: collapse; margin: 25px 0; }
+        th, td { border: 1px solid #cbd5e0; padding: 12px; text-align: left; }
+        th { background-color: #ebf8ff; color: #2b6cb0; }
+        pre { background-color: #1a202c; color: #edf2f7; padding: 15px; border-radius: 6px; font-family: monospace; overflow-x: auto; border-left: 4px solid #48bb78; }
+        code { font-family: monospace; background-color: #edf2f7; color: #e53e3e; padding: 2px 6px; border-radius: 4px; }
+        pre code { background-color: transparent; color: inherit; padding: 0; }
+        .cta-box { background-color: #ebf8ff; border: 1px dashed #4299e1; padding: 20px; border-radius: 6px; text-align: center; margin: 30px 0; }
+        .cta-button { display: inline-block; background-color: #3182ce; color: #ffffff; padding: 12px 24px; text-decoration: none; font-weight: bold; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Comment installer n8n gratuitement sur un VPS avec Docker : Le guide complet</h1>
+            <p>Publié par l'équipe Automate-Hub • Guide Expert Commando</p>
+        </header>
+
+        <p>Installer n8n sur le cloud officiel peut paraître idéal au début, mais cela requiert rapidement un budget important chaque mois. Pourquoi dépenser autant d'argent alors qu'il est possible d'<strong>héberger n8n self-hosted sur son propre serveur VPS à moindre coût</strong> ? C'est exactement là tout ce qui fait la différence entre un pro de l'automatisation et un débutant.</p>
+
+        <p>Il faut savoir que n8n est un outil d'automatisation ultra-puissant qui domine de nombreux domaines, notamment la gestion des agents IA et des workflows complexes. Installer n8n sur son propre serveur avec <strong>Docker</strong>, c'est la solution idéale pour éliminer les barrières de prix et avoir la main mise absolue sur la sécurité de ses workflows et de ses données. Dans ce guide commando, nous allons voir étape par étape comment déployer votre instance en moins de 10 minutes.</p>
+
+        <h2>1. Quelle configuration de VPS choisir pour n8n ?</h2>
+        <p>Pour faire tourner n8n sans limites, vous devez louer un serveur privé virtuel (VPS). Le choix des ressources dépend de ce que vous allez brancher sur vos workflows :</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Utilisation</th>
+                    <th>Configuration Recommandée</th>
+                    <th>Espace Stockage</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Débutant / Petits Workflows</strong></td>
+                    <td>1 vCPU / 2 Go RAM</td>
+                    <td>20 Go SSD</td>
+                </tr>
+                <tr>
+                    <td><strong>Pro / Agents IA & Workflows Parallèles</strong></td>
+                    <td>2 vCPU / 4 Go RAM</td>
+                    <td>40 Go SSD</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p>Si vous prévoyez d'utiliser des agents IA, plusieurs workflows en parallèle ou des traitements plus lourds, partez directement sur l'option <strong>2 vCPU et 4 Go de RAM</strong> pour éviter les crashs de mémoire en pleine exécution.</p>
+
+        <h3>Quel hébergeur choisir ?</h3>
+        <p>Pour ce guide, nous vous recommandons d'utiliser <strong>Hostinger</strong> ou <strong>DigitalOcean</strong>. Ils offrent le meilleur rapport qualité/prix du marché, des disques SSD ultra-rapides, et une installation d'Ubuntu propre en un clic.</p>
+
+        <div class="cta-box">
+            <p><strong>Soutenez notre travail sans frais supplémentaires :</strong></p>
+            <a href="#" class="cta-button">Cliquez ici pour réserver votre VPS chez Hostinger et bénéficier de la réduction partenaire Automate-Hub</a>
+        </div>
+
+        <h2>2. Installation de Docker et déploiement de n8n</h2>
+        <p>Une fois connecté à votre VPS en SSH via votre terminal, nous allons mettre à jour le système et installer Docker en quelques lignes de commande.</p>
+
+        <h3>Étape A : Mise à jour et installation de Docker</h3>
+        <p>Exécutez les commandes suivantes pour préparer votre environnement Linux :</p>
+        <pre><code>sudo apt update && sudo apt upgrade -y
+sudo apt install docker.io docker-compose -y
+sudo systemctl enable --now docker</code></pre>
+
+        <h3>Étape B : Configuration du fichier Docker Compose</h3>
+        <p>Pour lancer n8n de manière professionnelle et sécurisée, nous allons utiliser un fichier <code>docker-compose.yml</code>. Cela permet de garantir que vos données restent sauvegardées même si le conteneur redémarre.</p>
+        <p>Créez et ouvrez le fichier :</p>
+        <pre><code>nano docker-compose.yml</code></pre>
+
+        <p>Collez-y la configuration standardisée suivante :</p>
+        <pre><code>version: '3.8'
+
+services:
+  n8n:
+    image: docker.n8n.io/n8nio/n8n:latest
+    restart: always
+    ports:
+      - "5678:5678"
+    environment:
+      - N8N_BASIC_AUTH_ACTIVE=true
+      - GENERIC_TIMEZONE=Europe/Paris
+    volumes:
+      - n8n_data:/home/node/.n8n
+
+volumes:
+  n8n_data:</code></pre>
+
+        <h3>Étape C : Lancement de l'instance n8n</h3>
+        <p>Démarrez votre serveur d'automatisation en arrière-plan avec la commande :</p>
+        <pre><code>docker-compose up -d</code></pre>
+
+        <h3>Étape D : Accès à l'interface</h3>
+        <p>C'est terminé ! Il vous suffit maintenant d'ouvrir votre navigateur et de taper l'adresse IP de votre VPS suivie du port 5678 : <code>http://VOTRE_IP_VPS:5678</code></p>
+        <p>Il ne vous reste plus qu'à créer votre compte administrateur et à commencer à bâtir vos premiers agents IA de manière totalement gratuite et illimitée !</p>
+    </div>
+</body>
+</html>
