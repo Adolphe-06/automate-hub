@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comment créer son premier agent IA sur n8n : Guide Pratique - Automate Hub</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; color: #333; margin: 0; padding: 0; line-height: 1.6; }
+        header { background-color: #1e1e2f; color: #fff; padding: 30px 0; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        header h1 { margin: 0; font-size: 28px; letter-spacing: 1px; }
+        header span { color: #008bff; }
+        nav { text-align: center; margin: 20px 0; padding: 10px; background: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        nav a { margin: 0 15px; color: #1e1e2f; text-decoration: none; font-weight: bold; transition: color 0.3s; }
+        nav a:hover { color: #008bff; }
+        .container { max-width: 850px; margin: 30px auto; background: #fff; padding: 40px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        h2 { color: #1e1e2f; border-bottom: 2px solid #008bff; padding-bottom: 10px; margin-top: 30px; }
+        h3 { color: #2c3e50; margin-top: 20px; }
+        p { text-align: justify; }
+        ol { padding-left: 20px; }
+        li { margin-bottom: 12px; }
+        .cta-box { background-color: #eef4fa; border-left: 5px solid #008bff; padding: 25px; margin: 30px 0; border-radius: 4px; text-align: center; }
+        .btn { display: inline-block; background-color: #3b5998; color: #fff; padding: 14px 30px; text-decoration: none; border-radius: 5px; font-weight: bold; margin-top: 15px; transition: background 0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .btn:hover { background-color: #2d4373; }
+        footer { text-align: center; padding: 30px; color: #777; font-size: 14px; background: #1e1e2f; color: #fff; margin-top: 40px; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>AUTOMATE<span>•HUB</span></h1>
+</header>
+
+<nav>
+    <a href="index.html">Accueil / Guide VPS</a> | 
+    <a href="hostinger-vs-digitalocean.html">Comparatif VPS</a> |
+    <a href="creer-agent-ia-n8n.html">Créer un Agent IA</a>
+</nav>
+
+<div class="container">
+    <h1>Comment créer son premier agent IA sur n8n : Guide Pratique</h1>
+    <p style="color: #777; font-size: 14px;">📅 Juin 2026 • ⏱️ Lecture : 6 min • 👤 Par l'équipe Automate-Hub</p>
+    
+    <p>Une fois votre instance n8n installée sur votre VPS, les possibilités deviennent infinies. L'une des fonctionnalités les plus puissantes de n8n est sa capacité à orchestrer des <strong>agents d'intelligence artificielle avancés</strong> (grâce aux nœuds LangChain). Dans ce guide pratique, nous allons construire pas à pas un agent IA autonome capable de répondre à vos besoins.</p>
+    
+    <h2>Les étapes pour configurer l'agent</h2>
+    <ol>
+        <li><strong>Activer le nœud AI Agent :</strong> Glissez-déposez le nœud "AI Agent" sur votre espace de travail n8n. C'est le cerveau de votre automatisation.</li>
+        <li><strong>Connecter un modèle de langage (LLM) :</strong> Reliez un nœud OpenAI ou Anthropic à votre agent. Vous devrez y renseigner votre clé API pour lui donner la capacité de raisonner.</li>
+        <li><strong>Définir les outils (Tools) :</strong> Donnez des "mains" à votre IA. Vous pouvez lui brancher un outil de recherche web, l'accès à une base de données Airtable, ou un webhook Shopify pour qu'il puisse exécuter des actions concrètes.</li>
+        <li><strong>Ajouter de la mémoire :</strong> Connectez un nœud "Window Buffer Memory" pour que votre agent se souvienne du contexte des messages précédents lors d'une conversation.</li>
+    </ol>
+
+    <h2>Pourquoi le self-hosted change la donne ?</h2>
+    <p>En faisant tourner cet agent sur votre propre VPS plutôt que sur le cloud de n8n, vous ne payez aucune exécution de workflow. Vous êtes uniquement limité par la puissance de votre serveur, ce qui vous permet de traiter des milliers de requêtes e-commerce ou d'automatisations CRM sans voir votre facture exploser.</p>
+
+    <div class="cta-box">
+        <p><strong>Besoin d'un VPS performant pour vos agents IA ?</strong></p>
+        <p>Pour faire tourner des modèles de langage et des scripts lourds sans ralentissement, optez pour une infrastructure stable.</p>
+        <a href="#" class="btn">Déployer mon infrastructure sur Hostinger</a>
+    </div>
+</div>
+
+<footer>
+    &copy; 2026 Automate Hub - Tous droits réservés.
+</footer>
+
+</body>
+</html>
