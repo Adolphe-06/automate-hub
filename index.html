@@ -3,329 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Comment installer n8n gratuitement sur un VPS avec Docker - Automate-Hub</title>
+    <title>Comment installer n8n sur un VPS : Guide Complet - Automate Hub</title>
     <style>
-        :root {
-            --primary: #2563eb;
-            --primary-dark: #1d4ed8;
-            --bg-main: #f8fafc;
-            --text-main: #334155;
-            --text-dark: #0f172a;
-            --card-bg: #ffffff;
-            --accent: #10b981;
-        }
-        
-        body {
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            line-height: 1.7;
-            color: var(--text-main);
-            background-color: var(--bg-main);
-            margin: 0;
-            padding: 0;
-        }
-
-        /* Barre de navigation / Header */
-        .navbar {
-            background: linear-gradient(135deg, #1e3a8a, #0f172a);
-            color: white;
-            padding: 20px;
-            text-align: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
-        .navbar h2 {
-            margin: 0;
-            font-size: 20px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-        .navbar span {
-            color: #60a5fa;
-        }
-
-        .container {
-            max-width: 850px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
-
-        /* Structure de l'article */
-        .article-card {
-            background: var(--card-bg);
-            padding: 45px 40px;
-            border-radius: 16px;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
-        }
-
-        h1 {
-            font-size: 32px;
-            color: var(--text-dark);
-            line-height: 1.3;
-            margin-bottom: 15px;
-            font-weight: 800;
-        }
-
-        .meta-info {
-            font-size: 14px;
-            color: #64748b;
-            margin-bottom: 30px;
-            display: flex;
-            gap: 15px;
-            border-bottom: 1px solid #e2e8f0;
-            padding-bottom: 15px;
-        }
-
-        h2 {
-            font-size: 22px;
-            color: var(--text-dark);
-            margin-top: 40px;
-            margin-bottom: 20px;
-            position: relative;
-            padding-bottom: 8px;
-        }
-        h2::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 60px;
-            height: 4px;
-            background-color: var(--primary);
-            border-radius: 2px;
-        }
-
-        h3 {
-            font-size: 18px;
-            color: #1e293b;
-            margin-top: 25px;
-        }
-
-        p {
-            font-size: 16px;
-            margin-bottom: 20px;
-            text-align: justify;
-        }
-
-        strong {
-            color: var(--text-dark);
-        }
-
-        /* Tableaux au design moderne */
-        .table-container {
-            overflow-x: auto;
-            margin: 30px 0;
-            border-radius: 12px;
-            border: 1px solid #e2e8f0;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 15px;
-            background: white;
-        }
-        th, td {
-            padding: 16px;
-            text-align: left;
-        }
-        th {
-            background-color: #f1f5f9;
-            color: var(--text-dark);
-            font-weight: 700;
-            border-bottom: 2px solid #e2e8f0;
-        }
-        tr {
-            border-bottom: 1px solid #f1f5f9;
-        }
-        tr:last-child {
-            border-bottom: none;
-        }
-        tr:nth-child(even) {
-            background-color: #f8fafc;
-        }
-
-        /* Badges */
-        .badge {
-            display: inline-block;
-            padding: 4px 8px;
-            border-radius: 6px;
-            font-size: 12px;
-            font-weight: 600;
-            background: #dbeafe;
-            color: #1e40af;
-        }
-        .badge-pro {
-            background: #d1fae5;
-            color: #065f46;
-        }
-
-        /* Blocs de code style Terminal Mac/Linux */
-        .terminal-box {
-            background-color: #0f172a;
-            color: #38bdf8;
-            padding: 20px;
-            border-radius: 12px;
-            font-family: 'Fira Code', Consolas, Monaco, monospace;
-            font-size: 14.5px;
-            overflow-x: auto;
-            margin: 25px 0;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            border: 1px solid #1e293b;
-        }
-        .terminal-box code {
-            color: #f1f5f9;
-        }
-        .terminal-comment {
-            color: #64748b;
-        }
-
-        /* Box d'appel à l'action d'affiliation */
-        .cta-box {
-            background: linear-gradient(135deg, #eff6ff, #dbeafe);
-            border: 1px solid #bfdbfe;
-            padding: 30px;
-            border-radius: 16px;
-            text-align: center;
-            margin: 35px 0;
-        }
-        .cta-button {
-            display: inline-block;
-            background-color: var(--primary);
-            color: #ffffff !important;
-            padding: 14px 28px;
-            text-decoration: none;
-            font-weight: 700;
-            border-radius: 8px;
-            margin-top: 15px;
-            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
-            transition: all 0.2s ease;
-        }
-        .cta-button:hover {
-            background-color: var(--primary-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
-        }
-
-        code.inline-code {
-            font-family: monospace;
-            background-color: #f1f5f9;
-            color: #b91c1c;
-            padding: 3px 6px;
-            border-radius: 6px;
-            font-size: 14px;
-        }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; color: #333; margin: 0; padding: 0; line-height: 1.6; }
+        header { background-color: #1e1e2f; color: #fff; padding: 20px 0; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }}
+        nav { text-align: center; margin: 15px 0; }
+        nav a { margin: 0 15px; color: #1e1e2f; text-decoration: none; font-weight: bold; }
+        .container { max-width: 800px; margin: 30px auto; background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        h1 { color: #fff; margin: 0; font-size: 24px; }
+        h2, h3 { color: #1e1e2f; }
+        ul { padding-left: 20px; }
+        li { margin-bottom: 10px; }
+        .cta-box { background-color: #f0f4f8; border-left: 5px solid #1e1e2f; padding: 20px; margin: 25px 0; border-radius: 4px; text-align: center; }
+        .btn { display: inline-block; background-color: #1e1e2f; color: #fff; padding: 12px 25px; text-decoration: none; border-radius: 5px; font-weight: bold; margin-top: 10px; transition: background 0.3s; }
+        .btn:hover { opacity: 0.9; }
+        footer { text-align: center; padding: 20px; color: #777; font-size: 14px; margin-top: 5px; }
     </style>
 </head>
 <body>
 
-    <nav class="navbar">
-        <h2>Automate<span>•Hub</span></h2>
-    </nav>
+<header>
+    <h1>Automate Hub</h1>
+</header>
 
-    <div class="container">
-        <article class="article-card">
-            <header>
-                <h1>Comment installer n8n gratuitement sur un VPS avec Docker : Le guide complet</h1>
-                <div class="meta-info">
-                    <span>📅 Juin 2026</span>
-                    <span>⏱️ Lecture : 8 min</span>
-                    <span>👤 Par l'équipe Automate-Hub</span>
-                </div>
-            </header>
+<nav>
+    <a href="index.html">Accueil / Guide VPS</a> | 
+    <a href="hostinger-vs-digitalocean.html">Comparatif VPS</a>
+</nav>
 
-            <p>Installer n8n sur le cloud officiel peut paraître idéal au début, mais cela requiert rapidement un budget important chaque mois. Pourquoi dépenser autant d'argent alors qu'il est possible d'<strong>héberger n8n self-hosted sur son propre serveur VPS à moindre coût</strong> ? C'est exactement là tout ce qui fait la différence entre un pro de l'automatisation et un débutant.</p>
+<div class="container">
+    <h2>Comment installer n8n sur un VPS : Guide Complet</h2>
+    
+        <p>L'automatisation avec n8n nécessite une infrastructure stable. Dans ce guide, nous allons voir étape par étape comment déployer n8n sur un serveur privé virtuel (VPS) pour exécuter vos workflows IA 24h/24 sans dépendre de votre machine locale.</p>
+        <h3>Pourquoi choisir un VPS pour n8n ?</h3>
+        <p>Un VPS vous garantit une adresse IP fixe, une disponibilité de 99,9% et la possibilité de connecter des webhooks essentiels (comme Shopify, Typeform ou des agents IA) qui réagissent en temps réel.</p>
+        <div class="cta-box">
+            <p><strong>Recommandation :</strong> Pour débuter rapidement avec Docker pré-installé, nous vous conseillons l'hébergement VPS de Hostinger.</p>
+            <a href="#" class="btn">Découvrir Hostinger VPS</a>
+        </div>
+        
+</div>
 
-            <p>Il faut savoir que n8n est un outil d'automatisation ultra-puissant qui domine de nombreux domaines, notamment la gestion des agents IA et des workflows complexes. Installer n8n sur son propre serveur avec <strong>Docker</strong>, c'est la solution idéale pour éliminer les barrières de prix et avoir la main mise absolue sur la sécurité de ses workflows et de ses données. Dans ce guide commando, nous allons voir étape par étape comment déployer votre instance en moins de 10 minutes.</p>
+<footer>
+    &copy; 2026 Automate Hub - Tous droits réservés.
+</footer>
 
-            <h2>1. Quelle configuration de VPS choisir pour n8n ?</h2>
-            <p>Pour faire tourner n8n sans limites, vous devez louer un serveur privé virtuel (VPS). Le choix des ressources dépend de ce que vous allez brancher sur vos workflows :</p>
-
-            <div class="table-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Utilisation</th>
-                            <th>Configuration Recommandée</th>
-                            <th>Espace Stockage</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><span class="badge">Débutant / Petits Workflows</span></td>
-                            <td><strong>1 vCPU / 2 Go RAM</strong></td>
-                            <td>20 Go SSD</td>
-                        </tr>
-                        <tr>
-                            <td><span class="badge badge-pro">Pro / Agents IA & Parallélisme</span></td>
-                            <td><strong>2 vCPU / 4 Go RAM</strong></td>
-                            <td>40 Go SSD</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <p>Si vous prévoyez d'utiliser des agents IA, plusieurs workflows en parallèle ou des traitements plus lourds, partez directement sur l'option <strong>2 vCPU et 4 Go de RAM</strong> pour éviter les crashs de mémoire en pleine exécution.</p>
-
-            <h3>Quel hébergeur choisir ?</h3>
-            <p>Pour ce guide, nous vous recommandons d'utiliser <strong>Hostinger</strong> ou <strong>DigitalOcean</strong>. Ils offrent le meilleur rapport qualité/prix du marché, des disques SSD ultra-rapides, et une installation d'Ubuntu propre en un clic.</p>
-
-            <div class="cta-box">
-                <p style="text-align: center; margin-bottom: 10px;"><strong>🎁 Offre Partenaire Automate-Hub</strong></p>
-                <p style="text-align: center; font-size: 15px; color: #475569;">Bénéficiez d'une réduction exclusive sur votre hébergement et soutenez notre travail sans aucun frais supplémentaire.</p>
-                <a href="#" class="cta-button">Réserver mon VPS chez Hostinger (-20%)</a>
-            </div>
-
-            <h2>2. Installation de Docker et déploiement de n8n</h2>
-            <p>Une fois connecté à votre VPS en SSH via votre terminal, nous allons mettre à jour le système et installer Docker en quelques lignes de commande.</p>
-
-            <h3>Étape A : Mise à jour et installation de Docker</h3>
-            <p>Exécutez les commandes suivantes pour préparer votre environnement Linux :</p>
-            <div class="terminal-box">
-                <span class="terminal-comment"># Mettre à jour les paquets du système</span><br>
-                sudo apt update && sudo apt upgrade -y<br><br>
-                <span class="terminal-comment"># Installer Docker et Docker Compose</span><br>
-                sudo apt install docker.io docker-compose -y<br><br>
-                <span class="terminal-comment"># Activer Docker au démarrage</span><br>
-                sudo systemctl enable --now docker
-            </div>
-
-            <h3>Étape B : Configuration du fichier Docker Compose</h3>
-            <p>Pour lancer n8n de manière professionnelle et sécurisée, nous allons utiliser un fichier <code class="inline-code">docker-compose.yml</code>. Cela permet de garantir que vos données restent sauvegardées même si le conteneur redémarre.</p>
-            <p>Créez et ouvrez le fichier :</p>
-            <div class="terminal-box">
-                sudo nano docker-compose.yml
-            </div>
-
-            <p>Collez-y la configuration standardisée suivante :</p>
-            <div class="terminal-box" style="color: #a7f3d0;">
-                <span class="terminal-comment">version: '3.8'</span><br><br>
-                services:<br>
-                &nbsp;&nbsp;n8n:<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;image: docker.n8n.io/n8nio/n8n:latest<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;restart: always<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;ports:<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- "5678:5678"<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;environment:<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- N8N_BASIC_AUTH_ACTIVE=true<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- GENERIC_TIMEZONE=Europe/Paris<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;volumes:<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- n8n_data:/home/node/.n8n<br><br>
-                volumes:<br>
-                &nbsp;&nbsp;n8n_data:
-            </div>
-            <p><em>Astuce : Quittez et sauvegardez en appuyant sur <code class="inline-code">Ctrl+X</code>, puis <code class="inline-code">Y</code> (ou <code class="inline-code">O</code>) et <code class="inline-code">Entrée</code>.</em></p>
-
-            <h3>Étape C : Lancement de l'instance n8n</h3>
-            <p>Démarrez votre serveur d'automatisation en arrière-plan avec la commande :</p>
-            <div class="terminal-box">
-                docker-compose up -d
-            </div>
-
-            <h3>Étape D : Accès à l'interface</h3>
-            <p>C'est terminé ! Il vous suffit maintenant d'ouvrir votre navigateur et de taper l'adresse IP de votre VPS suivie du port 5678 : <code class="inline-code">http://VOTRE_IP_VPS:5678</code></p>
-            <p>Il ne vous reste plus qu'à créer votre compte administrateur et à commencer à bâtir vos premiers agents IA de manière totalement gratuite et illimitée !</p>
-        </article>
-    </div>
 </body>
 </html>
-
-
-
